@@ -31,3 +31,24 @@ export const useConfiguration = (appId: string) => {
   return {configuration, error};
  
 }
+
+export const useProducts = () => {
+    const [products, setProducts] = useState<any>(null);
+    const [error, setError] = useState<any>(null);
+
+    useEffect(() => {
+        const fetchProducts = async() => {
+            try {
+                const response = await axios.get(`${URl}/product/6781/`);
+                console.log
+                setProducts(response.data);
+            } catch (error) {
+                setError(error);
+            }
+        }
+        fetchProducts();
+    }, []);
+
+  return {products, error};
+ 
+}
