@@ -32,16 +32,16 @@ export const useConfiguration = (appId: string) => {
  
 }
 
-export const useProducts = () => {
-    const [products, setProducts] = useState<any>(null);
+export const useProduct = () => {
+    const [product, setProduct] = useState<any>(null);
     const [error, setError] = useState<any>(null);
 
     useEffect(() => {
         const fetchProducts = async() => {
             try {
                 const response = await axios.get(`${URl}/product/6781/`);
-                console.log
-                setProducts(response.data);
+                
+                setProduct(response.data);
             } catch (error) {
                 setError(error);
             }
@@ -49,6 +49,6 @@ export const useProducts = () => {
         fetchProducts();
     }, []);
 
-  return {products, error};
+  return {product, error};
  
 }

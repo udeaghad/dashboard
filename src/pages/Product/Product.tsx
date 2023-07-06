@@ -1,6 +1,15 @@
+import React, {useEffect} from 'react'
+import { useProduct } from '../../hooks/apiHooks'
 import EditButton from '../../components/EditButton/EditButton';
 
 const Product = () => {
+  
+  const { product } = useProduct()
+
+  useEffect(() => {
+    console.log(product)
+  }, [product])
+
 
   return (
     <div>
