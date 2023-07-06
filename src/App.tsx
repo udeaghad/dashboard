@@ -6,6 +6,8 @@ import Main from './pages/Main/Main';
 import { useConfiguration } from './hooks/apiHooks';
 import { configurationActions } from './features/configuration/configuration';
 import { useAppDispatch } from './hooks/storeHooks';
+import Product from './pages/Product/Product';
+import EditProduct from './pages/EditProduct/EditProduct';
 
 
 const App = () => {
@@ -19,10 +21,13 @@ const App = () => {
   }, [configuration, dispatch]);
 
   return (
-    <div>      <Header />
+    <div>
+      <Header />
       
       <Routes>
         <Route path="/" element={<Main />} /> 
+        <Route path="/product" element={<Product />} /> 
+        <Route path="/product/edit" element={<EditProduct />} /> 
       </Routes>    
     </div>
   );

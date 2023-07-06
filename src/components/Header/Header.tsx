@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import Navbar from './NavBar';
 import { useAppSelector } from '../../hooks/storeHooks'
 
