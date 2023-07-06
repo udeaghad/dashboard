@@ -1,18 +1,33 @@
+import {useState, useEffect} from 'react';
 import axios from 'axios';
+
+interface Configuration { 
+    id: string;
+    logo: string;
+    mainColor: string;
+    hasUserSection: boolean;
+}
+
 
 const URl = 'https://api-test.innoloft.com';
 
-export const useConfiguration = async(appId: string) => {
-  const configurationOptions = {
-    method: 'GET',
-    url: URl,
-    params: `configuration/${appId}`,
-  };
+export const useConfiguration = (appId: string) => {
+  console.log(appId)
+    const [configuration, setConfiguration] = useState<Configuration | null>(null);
+    const [error, setError] = useState<any>(null);
 
-  try {
-    const response = await axios.request(configurationOptions);
-    return response.data;
-  } catch (error: any) {
-    throw new Error(error);
-  }
+    useEffect(() => {
+        const fetchConfiguration = async() => {
+            try {
+                const response = await axios.get(`${URl}/configuration/${appId}/`);
+                setConfiguration(response.data);
+            } catch (error) {
+                setError(error);
+            }
+        }
+        fetchConfiguration();
+    }, [appId]);
+
+  return {configuration, error};
+ 
 }
