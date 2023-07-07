@@ -14,7 +14,7 @@ interface IProductCard extends IProduct {
 
 const CompanyCard = ({isLoaded, GoogleMap, center, map, setMap, containerStyle, Marker, ...product}: IProductCard) => {
   return (
-    <div className='m-3'>
+    <div className='m-3 bg-gray-50 rounded-md border-2 border-gray-100 p-3'>
       <div>
         <div className='mb-4 bg-primary p-2 w-32'>
           <h1 className='text-white font-bold text-center'>Offered By</h1>

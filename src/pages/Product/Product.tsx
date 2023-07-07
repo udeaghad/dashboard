@@ -52,19 +52,19 @@ const Product = () => {
 
 
   return (
-    <div className="bg-slate-200">
-      <div className="m-2">
+    <div className="bg-gray-200">
+      <div className="mx-2 py-5">
         <EditButton />
       </div>
 
-      <div>
-        <div>
+      <div className="md:flex md:justify-end md:mr-20">
+        <div className="md:max-w-xl">
           {product &&
             <ProductCard {...product}/>         
           }          
         </div>
 
-        <div>
+        <div className="md:max-w-md">
           {product &&
             <CompanyCard 
               {...product}
@@ -81,10 +81,12 @@ const Product = () => {
         </div>
       </div>
 
-      <div>
-        {product &&
-          <VideoPlayer {...product}/>
-        }
+      <div className='md:flex md:justify-end'>
+        <div className='md:max-w-5xl md:w-full md:mr-20'>
+          {product &&
+            <VideoPlayer {...product}/>
+          }
+        </div>
       </div>
 
       <div>
