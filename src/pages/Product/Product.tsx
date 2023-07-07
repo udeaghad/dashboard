@@ -8,6 +8,7 @@ import { productActions } from '../../features/product/product';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import CompanyCard from '../../components/CompanyCard/CompanyCard';
 import VideoPlayer from '../../components/VideoPlayer/VideoPlayer';
+import OfferDetails from '../../components/OfferDetails/OfferDetails';
 
 const Product = () => {
   const dispatch = useAppDispatch()
@@ -51,7 +52,7 @@ const Product = () => {
 
 
   return (
-    <div>
+    <div className="bg-slate-200">
       <div className="m-2">
         <EditButton />
       </div>
@@ -83,6 +84,12 @@ const Product = () => {
       <div>
         {product &&
           <VideoPlayer {...product}/>
+        }
+      </div>
+
+      <div>
+        {product &&
+          <OfferDetails {...product}/>
         }
       </div>
     </div>
