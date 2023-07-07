@@ -5,7 +5,7 @@ import { IProduct } from '../../interfaces/productInterface';
 
 const VideoPlayer = ({...product}: IProduct) => {
   return (
-    <div className='mx-3 my-10' data-testId="video">
+    <div className='mx-3 my-10' data-testid="video-player">
       <ReactPlayer
         url={product.video}
         width='100%'
