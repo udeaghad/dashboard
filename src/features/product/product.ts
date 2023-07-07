@@ -1,20 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { IProduct } from '../../interfaces/productInterface'
 
-//api interface
 
-export interface ProductState {
-  [key: string]: any
-}
 
-const initialState: ProductState = {
-  product: null,
+const initialState = {
+  product: null as IProduct | null,
 }
 
 const productSlice = createSlice({
   name: 'product',
   initialState,
   reducers: {
-    setProduct: (state, action: PayloadAction<any>) => ({...state, product: action.payload}),
+    setProduct: (state, action: PayloadAction<any>) => ({...state, product: action.payload})
   },
 })
 

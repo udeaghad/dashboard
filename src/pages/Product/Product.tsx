@@ -1,14 +1,20 @@
 import React, {useEffect} from 'react'
 import { useProduct } from '../../hooks/apiHooks'
+import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import EditButton from '../../components/EditButton/EditButton';
+import { productActions } from '../../features/product/product';
+import ProductCard from '../../components/ProductCard/ProductCard';
 
 const Product = () => {
-  
-  const { product } = useProduct()
+  const dispatch = useAppDispatch()
+  const {product}  = useAppSelector(state => state.product)
+
+  const { getProduct } = useProduct()
 
   useEffect(() => {
-    console.log(product)
-  }, [product])
+    console.log(getProduct)
+    dispatch(productActions.setProduct(getProduct))
+  }, [getProduct, dispatch])
 
 
   return (
@@ -19,15 +25,9 @@ const Product = () => {
 
       <div>
         <div>
-          <div>
-            image
-          </div>
-          <div>
-            title
-          </div>
-          <div>
-            description
-          </div>
+          {product &&
+            <ProductCard {...product}/>         
+          }          
         </div>
 
         <div>

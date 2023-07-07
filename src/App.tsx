@@ -17,6 +17,7 @@ const App = () => {
   const { configuration } = useConfiguration(appId);
 
   useEffect(() => {
+    
     dispatch(configurationActions.setConfiguration(configuration));
   }, [configuration, dispatch]);
 

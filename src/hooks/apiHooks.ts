@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 
 import { Configuration } from '../interfaces/configurationInterface';
+import { IProduct } from '../interfaces/productInterface';
 
 
 
@@ -33,15 +34,14 @@ export const useConfiguration = (appId: string) => {
 }
 
 export const useProduct = () => {
-    const [product, setProduct] = useState<any>(null);
+    const [getProduct, setGetProduct] = useState<IProduct | null>(null);
     const [error, setError] = useState<any>(null);
 
     useEffect(() => {
         const fetchProducts = async() => {
             try {
-                const response = await axios.get(`${URl}/product/6781/`);
-                
-                setProduct(response.data);
+                const response = await axios.get(`${URl}/product/6781/`);                
+                setGetProduct(response.data);
             } catch (error) {
                 setError(error);
             }
@@ -49,6 +49,6 @@ export const useProduct = () => {
         fetchProducts();
     }, []);
 
-  return {product, error};
+  return {getProduct, error};
  
 }
