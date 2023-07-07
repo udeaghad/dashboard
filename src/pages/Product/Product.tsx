@@ -7,6 +7,7 @@ import EditButton from '../../components/EditButton/EditButton';
 import { productActions } from '../../features/product/product';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import CompanyCard from '../../components/CompanyCard/CompanyCard';
+import VideoPlayer from '../../components/VideoPlayer/VideoPlayer';
 
 const Product = () => {
   const dispatch = useAppDispatch()
@@ -77,6 +78,12 @@ const Product = () => {
           }
 
         </div>
+      </div>
+
+      <div>
+        {product &&
+          <VideoPlayer {...product}/>
+        }
       </div>
     </div>
   )
