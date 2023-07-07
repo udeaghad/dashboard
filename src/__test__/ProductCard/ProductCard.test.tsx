@@ -88,7 +88,7 @@ describe('ProductCard', () => {
     expect(productImage).toHaveAttribute('src', product.picture);
   })
 
-  it("Should render the Product title", () => {
+  it("Should render the Product name", () => {
     render(
       <BrowserRouter>
         <ProductCard 
@@ -96,9 +96,11 @@ describe('ProductCard', () => {
         />
       </BrowserRouter>
     );
-    const productTitle = screen.getByText('Innoloft creates the leading B2B tech ecosystem through interconnected research & business networks and marketplaces.');
-    expect(productTitle).toBeInTheDocument();
+
+    const productName = screen.getByText('LoftOS');
+    expect(productName).toBeInTheDocument();
   })
+
 
   it("Should render the Product description", () => {
     render(
@@ -108,8 +110,8 @@ describe('ProductCard', () => {
         />
       </BrowserRouter>
     );
-    const productDescription = screen.getByText('With our digital platform technology, we are changing the way business contacts are initiated between economic and innovation actors...');
-    expect(productDescription).toBeInTheDocument();
+    
+    const productDescription = screen.getByText('Innoloft creates the leading B2B tech ecosystem through interconnected research & business networks and marketplaces. With our digital platform technology, we are changing the way business contacts are initiated between economic and innovation actors...');
   })
     
 
