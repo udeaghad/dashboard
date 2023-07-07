@@ -1,5 +1,5 @@
 export interface IProduct {
-  business_model: {id: number, name: string};
+  businessModels: {id: number, name: string}[];
   categories: {id: number, name: string}[];
   company: {
     address: {

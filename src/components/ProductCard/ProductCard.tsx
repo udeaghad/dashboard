@@ -2,7 +2,7 @@ import { IProduct } from '../../interfaces/productInterface';
 import { SlBadge } from 'react-icons/sl';
 
 
-const ProductCard = ({...product}: IProduct) => {
+const ProductCard = ({...product}:IProduct) => {
   
   return (
     <div className="m-3">
@@ -20,11 +20,14 @@ const ProductCard = ({...product}: IProduct) => {
 
       <div className="px-2 py-3">
         <h2 className='font-bold text-primary my-3'>
-          {
-            product.description.split(" ").slice(8).join(" ").charAt(0).toUpperCase() + 
-            product.description.split(" ").slice(8,9).join(" ").split('').slice(1).join('') + 
-            " " + 
-            product.description.split(' ').slice(9, 20).join(" ")
+          {            
+            product.description.split(' ').slice(4, 5).join(" ").slice(43) +
+            " " +
+            product.description.split(' ').slice(5, 6).join(" ").slice(3, 10) +
+            " " +
+            product.description.split(' ').slice(7, 8).join(" ").slice(-3) +
+            " " +
+            product.description.split(' ').slice(8, 20).join(" ")
           }
         </h2>
 
