@@ -30,11 +30,11 @@ const CompanyCard = ({isLoaded, GoogleMap, center, map, setMap, containerStyle, 
         </div>
         <div>
           <h3 className='font-bold text-primary'>{product.user.firstName} {" "} {product.user.lastName}</h3>
-          <p className='text-primary text-md'>{product.company.name}</p>
+          <p className='text-primary text-md' data-testid="company-name">{product.company.name}</p>
         </div>
       </div>
 
-      <div className='flex justify-start items-start gap-2 mt-5'>
+      <div className='flex justify-start items-start gap-2 mt-5' data-testid="company-address">
         <div>
           <IoLocationSharp className='text-primary text-xl'/>
         </div>
@@ -44,7 +44,7 @@ const CompanyCard = ({isLoaded, GoogleMap, center, map, setMap, containerStyle, 
         </div>
       </div>
 
-      <div>
+      <div data-testid="map">
         { isLoaded ? 
           <>
             <GoogleMap
