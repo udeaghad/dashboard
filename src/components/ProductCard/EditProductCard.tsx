@@ -3,16 +3,18 @@ import React, {useState} from 'react';
 import { ContentState, EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { NavLink } from 'react-router-dom';
 
 import { IProduct } from '../../interfaces/productInterface';
 import { SlBadge } from 'react-icons/sl';
 
 interface IEditProductCard extends IProduct {
   setEditDescription: React.Dispatch<React.SetStateAction<string>>
+  handleUpdateDescription: () => void
 }
 
 
-const EditProductCard = ({ setEditDescription, ...product}:IEditProductCard) => {
+const EditProductCard = ({ setEditDescription, handleUpdateDescription, ...product}:IEditProductCard) => {
 
   const [editorState, setEditorState] = useState(
     () => EditorState.createWithContent(ContentState.createFromText(product.description)
@@ -37,14 +39,27 @@ const EditProductCard = ({ setEditDescription, ...product}:IEditProductCard) => 
         <h2 className='font-bold text-primary mb-5 text-lg'>{product.name}</h2>
 
         <div className='bg-white p-2'>
-          <Editor
-            editorState={editorState}
-            toolbarClassName="toolbarClassName"
-            wrapperClassName="wrapperClassName"
-            editorClassName="editorClassName"
-            onEditorStateChange={setEditorState}
-            onChange={() => setEditDescription(editorState.getCurrentContent().getPlainText())}
-          />
+          <div>
+            <Editor
+              editorState={editorState}
+              toolbarClassName="toolbarClassName"
+              wrapperClassName="wrapperClassName"
+              editorClassName="editorClassName"
+              onEditorStateChange={setEditorState}
+              onChange={() => setEditDescription(editorState.getCurrentContent().getPlainText())}
+            />
+          </div>
+
+          <div className='flex justify-end items-center gap-3'>            
+            <button type="button" className='bg-primary text-white p-2 rounded-md' onClick={handleUpdateDescription}>
+              Update
+            </button>
+
+            <button type="button" className='bg-red-600 text-white p-2 rounded-md'>
+              <NavLink to='/product'>Cancel</NavLink>              
+            </button>
+          </div>
+
         </div>
       </div>
     

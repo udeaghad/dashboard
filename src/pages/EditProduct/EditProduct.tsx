@@ -2,21 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { IProduct} from '../../interfaces/productInterface';
 import {useAppSelector, useAppDispatch} from '../../hooks/storeHooks';
 import EditProductCard from '../../components/ProductCard/EditProductCard';
+import { postProductUpdate } from '../../hooks/apiHooks';
+
 
 const EditProduct = () => {
 
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch(); 
 
   const { product } = useAppSelector((state) => state.product);
   const [changed, setChanged ] = useState<boolean>(false)
   const [editDescription, setEditDescription] = useState('')
 
+  
   useEffect(() => {
     console.log(editDescription)
   }, [editDescription])
-
-  const handleInputChange = () => {
-    
+  
+  
+  const handleUpdateDescription = () => {
+    postProductUpdate(editDescription)
     // event.preventDefault();
     // const { name, value } = event.target;
     // if (!tempProduct) return;
@@ -37,9 +41,11 @@ const EditProduct = () => {
             <EditProductCard 
             {...product}
             setEditDescription={setEditDescription}
+            handleUpdateDescription={handleUpdateDescription}
           />         
           }          
         </div>
+
       </div>
 
     </div>
