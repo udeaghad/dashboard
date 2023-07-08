@@ -75,12 +75,12 @@ export const useGetTRL = () => {
 }
 
 export const postProductUpdate = async(description: string) => {
-    console.log({description})
+    
     try {
         const response = await axios.post(`${URl}/product/6781/`, {
             description: description
         });
-        console.log(response.data);
+        
     } catch (error) {
         console.log(error);
     }

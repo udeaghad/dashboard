@@ -17,9 +17,10 @@ const Product = () => {
   const { getProduct } = useProduct()
 
   useEffect(() => {
-    console.log(getProduct)
-    dispatch(productActions.setProduct(getProduct))
-  }, [getProduct, dispatch])
+    if(!product){
+      dispatch(productActions.setProduct(getProduct))
+    }
+  }, [getProduct, dispatch, product])
 
   const {isLoaded} = useJsApiLoader({
     id: 'google-map-script',

@@ -3,6 +3,7 @@ import { IProduct} from '../../interfaces/productInterface';
 import {useAppSelector, useAppDispatch} from '../../hooks/storeHooks';
 import EditProductCard from '../../components/ProductCard/EditProductCard';
 import { postProductUpdate } from '../../hooks/apiHooks';
+import { productActions } from '../../features/product/product';
 
 
 const EditProduct = () => {
@@ -12,15 +13,29 @@ const EditProduct = () => {
   const { product } = useAppSelector((state) => state.product);
   const [changed, setChanged ] = useState<boolean>(false)
   const [editDescription, setEditDescription] = useState('')
+  const [tempProduct, setTempProduct] = useState<IProduct | null>(null);
+
+  useEffect(() => {
+    if (product) {
+      setTempProduct(product);
+    }
+  }, [product]);
 
   
   useEffect(() => {
     console.log(editDescription)
   }, [editDescription])
+
+
+
+
   
   
   const handleUpdateDescription = () => {
+    if (!tempProduct) return;
     postProductUpdate(editDescription)
+    // setTempProduct({...tempProduct, description: editDescription})
+    dispatch(productActions.updateProduct({...tempProduct, description: editDescription}))
     // event.preventDefault();
     // const { name, value } = event.target;
     // if (!tempProduct) return;
@@ -52,4 +67,4 @@ const EditProduct = () => {
   )
 }
 
-export default EditProduct
+export default EditProduct;
