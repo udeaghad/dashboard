@@ -52,3 +52,45 @@ export const useProduct = () => {
   return {getProduct, error};
  
 }
+
+export const useUpdateProductDescription = (description: string) => {
+    const [updateProduct, setUpdateProduct] = useState<any>(null);
+    const [error, setError] = useState<any>(null);
+
+    useEffect(() => {
+        const updateProductsDescription = async() => {
+            try {
+                const response = await axios.put(`${URl}/product/6781/`, {description});
+                console.log(response.data);
+                setUpdateProduct(response.data);
+            } catch (error) {
+                setError(error);
+            }
+        }
+        updateProductsDescription();
+    }, []);
+
+    return {updateProduct, error};
+
+}
+
+export const useGetTRL = () => {
+    const [getTRL, setGetTRL] = useState<any>(null);
+    const [error, setError] = useState<any>(null);
+
+    useEffect(() => {
+        const fetchTRL = async() => {
+            try {
+                const response = await axios.get(`${URl}/trl/`);
+                console.log(response.data);
+                setGetTRL(response.data);
+            } catch (error) {
+                setError(error);
+            }
+        }
+        fetchTRL();
+    }, []);
+
+  return {getTRL, error};
+ 
+}
