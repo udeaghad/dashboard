@@ -10,9 +10,10 @@ interface IProductCard extends IProduct {
   setMap: React.Dispatch<React.SetStateAction<any>>;
   containerStyle: {width: string; height: string};
   Marker: any;
+  mapContainer: React.MutableRefObject<HTMLDivElement | null>;
 }
 
-const CompanyCard = ({isLoaded, GoogleMap, center, map, setMap, containerStyle, Marker, ...product}: IProductCard) => {
+const CompanyCard = ({isLoaded, GoogleMap, center, map, setMap, containerStyle, Marker, mapContainer, ...product}: IProductCard) => {
   return (
     <div className='m-3 bg-gray-50 rounded-md border-2 border-gray-100 p-3'>
       <div>
@@ -44,7 +45,7 @@ const CompanyCard = ({isLoaded, GoogleMap, center, map, setMap, containerStyle, 
         </div>
       </div>
 
-      <div data-testid="map">
+      <div data-testid="map" ref={mapContainer}>
         { isLoaded ? 
           <>
             <GoogleMap

@@ -4,21 +4,24 @@ import { ContentState, EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { NavLink } from 'react-router-dom';
-
+import { MdDone } from 'react-icons/md';
+import {IoMdClose} from 'react-icons/io';
+                                
 import { IProduct } from '../../interfaces/productInterface';
 import { SlBadge } from 'react-icons/sl';
 
 interface IEditProductCard extends IProduct {
-  setEditDescription: React.Dispatch<React.SetStateAction<string>>
-  handleUpdateDescription: () => void
+  setEditDescription: React.Dispatch<React.SetStateAction<string>>;
+  handleUpdateDescription: () => void;
+  changed: boolean
 }
 
 
-const EditProductCard = ({ setEditDescription, handleUpdateDescription, ...product}:IEditProductCard) => {
+const EditProductCard = ({ setEditDescription, handleUpdateDescription, changed, ...product}:IEditProductCard) => {
 
   const [editorState, setEditorState] = useState(
-    () => EditorState.createWithContent(ContentState.createFromText(product.description)
-  ));
+    () => EditorState.createWithContent(ContentState.createFromText(product.description))
+  )
 
   return (
     <div className="m-3 bg-gray-50 rounded-md border-2 border-gray-100 p-3">
@@ -40,24 +43,32 @@ const EditProductCard = ({ setEditDescription, handleUpdateDescription, ...produ
 
         <div className='bg-white p-2'>
           <div>
-            <Editor
-              editorState={editorState}
-              toolbarClassName="toolbarClassName"
-              wrapperClassName="wrapperClassName"
-              editorClassName="editorClassName"
-              onEditorStateChange={setEditorState}
-              onChange={() => setEditDescription(editorState.getCurrentContent().getPlainText())}
-            />
+              <Editor
+                editorState={editorState}                
+                toolbarClassName="toolbarClassName"
+                wrapperClassName="wrapperClassName"
+                editorClassName="editorClassName"
+                onEditorStateChange={setEditorState}
+                onChange={() => setEditDescription(editorState.getCurrentContent().getPlainText())}
+                                                                        
+              />
           </div>
 
-          <div className='flex justify-end items-center gap-3'>            
-            <button type="button" className='bg-primary text-white p-2 rounded-md' onClick={handleUpdateDescription}>
-              Update
+          <div className='flex justify-end items-center gap-3'>  
+            <button type="button" className='bg-red-600 text-white px-2 rounded-md'>
+              <NavLink to='/product' className="flex justify-center items-center gap-2">
+                <IoMdClose className='text-white text-xl'/>
+                Close
+              </NavLink>              
             </button>
 
-            <button type="button" className='bg-red-600 text-white p-2 rounded-md'>
-              <NavLink to='/product'>Cancel</NavLink>              
-            </button>
+            {changed && 
+              <button type="button" className='bg-primary text-white px-2 rounded-md flex justify-center items-center gap-2' onClick={handleUpdateDescription}>
+                <MdDone className='text-white text-xl'/>  
+                Save
+              </button>            
+            }          
+
           </div>
 
         </div>

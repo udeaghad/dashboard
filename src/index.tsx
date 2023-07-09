@@ -18,4 +18,4 @@ root.render(
       </Provider>
     </Router>
   </React.StrictMode>
-);
+);                                    

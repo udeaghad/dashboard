@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { useNavigate } from 'react-router-dom';
 
 import { useProduct } from '../../hooks/apiHooks'
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
@@ -12,9 +13,12 @@ import OfferDetails from '../../components/OfferDetails/OfferDetails';
 
 const Product = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const {product}  = useAppSelector(state => state.product)
 
   const { getProduct } = useProduct()
+
+  const mapContainer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if(!product){
@@ -48,13 +52,23 @@ const Product = () => {
     }
   }, [product])
 
+  const handleEditButton = () => {
+    if (mapContainer.current) {
+      console.log(mapContainer.current)
+      mapContainer.current.style.display = 'none'
+    }
+    navigate('/product/edit')
+  }
+
 
 
 
   return (
     <div className="bg-gray-200">
       <div className="mx-2 py-5">
-        <EditButton />
+        <EditButton 
+          handleEditButton={handleEditButton}
+        />
       </div>
 
       <div className="md:flex md:justify-end md:mr-20">
@@ -75,6 +89,7 @@ const Product = () => {
               containerStyle={containerStyle}
               GoogleMap={GoogleMap}
               Marker={Marker}
+              mapContainer={mapContainer}
             />          
           }
 

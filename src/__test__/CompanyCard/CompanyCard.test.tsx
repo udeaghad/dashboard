@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { BrowserRouter } from 'react-router-dom';
 import CompanyCard from '../../components/CompanyCard/CompanyCard';
+import { current } from '@reduxjs/toolkit';
 
 describe('CompanyCard', () => {
   const product = {
@@ -88,6 +89,10 @@ describe('CompanyCard', () => {
   };
   const GoogleMap = jest.fn();
   const Marker = jest.fn();
+  const mapContainer = {
+    ref: jest.fn(),
+    current: null
+  }
 
 
   it('should render \"Offered By\"', () => {
@@ -101,7 +106,8 @@ describe('CompanyCard', () => {
         center={center}
         containerStyle={containerStyle}
         GoogleMap={GoogleMap}
-        Marker={Marker}       
+        Marker={Marker}
+        mapContainer={mapContainer}       
 
       />
       </BrowserRouter>
@@ -122,7 +128,8 @@ describe('CompanyCard', () => {
         center={center}
         containerStyle={containerStyle}
         GoogleMap={GoogleMap}
-        Marker={Marker}       
+        Marker={Marker} 
+        mapContainer={mapContainer}       
 
       />
       </BrowserRouter>
@@ -144,7 +151,8 @@ describe('CompanyCard', () => {
         center={center}
         containerStyle={containerStyle}
         GoogleMap={GoogleMap}
-        Marker={Marker}       
+        Marker={Marker}
+        mapContainer={mapContainer}        
 
       />
       </BrowserRouter>
@@ -166,7 +174,8 @@ describe('CompanyCard', () => {
         center={center}
         containerStyle={containerStyle}
         GoogleMap={GoogleMap}
-        Marker={Marker}       
+        Marker={Marker} 
+        mapContainer={mapContainer}       
 
       />
       </BrowserRouter>
@@ -188,6 +197,7 @@ describe('CompanyCard', () => {
         containerStyle={containerStyle}
         GoogleMap={GoogleMap}
         Marker={Marker}
+        mapContainer={mapContainer} 
       />
       </BrowserRouter>      
     );
@@ -208,6 +218,7 @@ describe('CompanyCard', () => {
         containerStyle={containerStyle}
         GoogleMap={GoogleMap}
         Marker={Marker}
+        mapContainer={mapContainer} 
       />
       </BrowserRouter>
       
@@ -229,6 +240,7 @@ describe('CompanyCard', () => {
         containerStyle={containerStyle}
         GoogleMap={GoogleMap}
         Marker={Marker}
+        mapContainer={mapContainer} 
       />
       </BrowserRouter>
       
