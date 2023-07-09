@@ -6,7 +6,7 @@ import { SlBadge } from 'react-icons/sl';
 const ProductCard = ({...product}:IProduct) => {
   
   return (
-    <div className="m-3 bg-gray-50 rounded-md border-2 border-gray-100 p-3">
+    <div className="m-3 bg-gray-50 rounded-md border-2 border-gray-100 p-3 md:m-0 md:mt-3 md:h-full">
       <div className="relative">
         <div className='absolute border border-primary rounded-md flex bg-white justify-center top-0 left-0'>
           <div className='bg-[#272e71] p-2'>

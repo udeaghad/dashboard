@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import { IProduct } from '../../interfaces/productInterface'
 import { BiSolidCategory } from 'react-icons/bi';
 import { GrBusinessService } from 'react-icons/gr';
@@ -7,6 +7,8 @@ import { FaBusinessTime } from 'react-icons/fa';
 
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import {IoMdClose} from 'react-icons/io';
+import { NavLink } from 'react-router-dom';
 
 interface IEditOfferDetails extends IProduct {
   handleAddCategory: (e: React.KeyboardEvent<HTMLElement>) => void;
@@ -16,18 +18,28 @@ interface IEditOfferDetails extends IProduct {
   getTRL: {id: string; name: string}[];
   selectedTRL: {id: string; name: string} | null; 
   setSelectedTRL: React.Dispatch<React.SetStateAction<{id: string; name: string} | null>>;  
- 
+  handeDeleteCategory: (id: number) => void;
+  handleDeleteBusinessModel: (id: number) => void;
 }
 
 const classNames = (...classes:string[]) => {
   return classes.filter(Boolean).join(' ')
 }
 
-const EditOfferDetails = ({handleAddCategory, categoriesRef, businessModelRef, handleAddBusinessModel, getTRL, selectedTRL, setSelectedTRL, ...product}: IEditOfferDetails) => {
+const EditOfferDetails = ({handleAddCategory, categoriesRef, businessModelRef, handleAddBusinessModel, getTRL, selectedTRL, setSelectedTRL, handeDeleteCategory, handleDeleteBusinessModel, ...product}: IEditOfferDetails) => {
   return (
     <div className="mx-3 my-5 bg-gray-50 rounded-md border-2 border-gray-100 p-3">
-      <div className='mb-4 bg-primary p-2 w-32'>
-        <h1 className='text-white font-bold text-center'>Offered details</h1>
+      <div className="flex justify-between items-start">
+        <div className='mb-4 bg-primary p-2 w-32'>
+          <h1 className='text-white font-bold text-center'>Offered details</h1> 
+        </div>
+
+        <button type="button" className='bg-red-600 text-white px-2'>
+          <NavLink to='/product' className="flex justify-center items-center gap-2">
+            <IoMdClose className='text-white text-xl'/>
+            Close
+          </NavLink>              
+        </button>
       </div>
 
       <div className='md:grid md:grid-cols-2'>
@@ -38,10 +50,16 @@ const EditOfferDetails = ({handleAddCategory, categoriesRef, businessModelRef, h
             <h3 className='text-primary font-bold text-lg'>Categories</h3>
           </div>
 
-          <div className='flex flex-row justify-start items-center gap-2 ml-7 flex-wrap'>
+          <div className='flex flex-row justify-start items-center gap-2 ml-7 flex-wrap'>           
+
             {product.categories.map((category) => (
-              <div key={category.id} className='bg-primary p-2 rounded-md'>
+              <div key={category.id} className='bg-primary pb-2 pl-2 p-1 rounded-md relative flex flex-row gap-1 justify-center items-center hover:bg-slate-500'>
                 <p className='text-white text-xs font-bold'>{category.name}</p>
+                <div className="flex justify-end items-start">
+                  <button type="button" onClick={() => handeDeleteCategory(category.id)}>
+                    <IoMdClose className="text-white"/>
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -67,8 +85,13 @@ const EditOfferDetails = ({handleAddCategory, categoriesRef, businessModelRef, h
 
           <div className='flex flex-row justify-start items-center gap-2 ml-7 flex-wrap'>
             {product.businessModels.map((model) => (
-              <div key={model.id} className='bg-primary p-2 rounded-md'>
+              <div key={model.id} className='bg-primary pb-2 pl-2 p-1 rounded-md relative flex flex-row gap-1 justify-center items-center hover:bg-slate-500'>
                 <p className='text-white text-xs font-bold'>{model.name}</p>
+                <div className="flex justify-end items-start">
+                  <button type="button" onClick={() => handleDeleteBusinessModel(model.id)}>
+                    <IoMdClose className="text-white"/>
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -93,8 +116,8 @@ const EditOfferDetails = ({handleAddCategory, categoriesRef, businessModelRef, h
           </div>
 
           <div className='flex flex-row justify-start items-center gap-2 ml-7 flex-wrap'>         
-              <div className='bg-primary p-2 rounded-md'>
-                <p className='text-white text-xs font-bold'>{product.trl.name}</p>
+              <div className='bg-primary pb-2 pl-2 p-1 rounded-md relative flex flex-row gap-1 justify-center items-center hover:bg-slate-500'>
+                <p className='text-white text-xs font-bold'>{product.trl.name}</p>                
               </div>          
           </div>
 

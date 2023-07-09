@@ -60,8 +60,7 @@ export const useGetTRL = () => {
     useEffect(() => {
         const fetchTRL = async() => {
             try {
-                const response = await axios.get(`${URl}/trl/`);
-                console.log(response.data);
+                const response = await axios.get(`${URl}/trl/`);                
                 setGetTRL(response.data);
             } catch (error) {
                 setError(error);
@@ -74,12 +73,10 @@ export const useGetTRL = () => {
  
 }
 
-export const postProductUpdate = async(description: string) => {
-    
+export const postProductUpdate = async(data: any) => {    
     try {
-        const response = await axios.post(`${URl}/product/6781/`, {
-            description: description
-        });
+        const response = await axios.post(`${URl}/product/6781/`, data);        
+        return response.data;
         
     } catch (error) {
         console.log(error);

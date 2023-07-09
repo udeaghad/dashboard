@@ -1,6 +1,5 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useEffect, useState} from 'react'
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
-import { useNavigate } from 'react-router-dom';
 
 import { useProduct } from '../../hooks/apiHooks'
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
@@ -10,15 +9,14 @@ import ProductCard from '../../components/ProductCard/ProductCard';
 import CompanyCard from '../../components/CompanyCard/CompanyCard';
 import VideoPlayer from '../../components/VideoPlayer/VideoPlayer';
 import OfferDetails from '../../components/OfferDetails/OfferDetails';
+import DesktopMenu from '../../components/DesktopMenu/DesktopMenu';
 
 const Product = () => {
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
-  const {product}  = useAppSelector(state => state.product)
+  const {product: {product}, configuration: {configuration}}  = useAppSelector(state => state)
 
   const { getProduct } = useProduct()
 
-  const mapContainer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if(!product){
@@ -52,49 +50,52 @@ const Product = () => {
     }
   }, [product])
 
-  const handleEditButton = () => {
-    if (mapContainer.current) {
-      console.log(mapContainer.current)
-      mapContainer.current.style.display = 'none'
-    }
-    navigate('/product/edit')
-  }
-
-
-
-
   return (
     <div className="bg-gray-200">
-      <div className="mx-2 py-5">
-        <EditButton 
-          handleEditButton={handleEditButton}
-        />
-      </div>
 
-      <div className="md:flex md:justify-end md:mr-20">
-        <div className="md:max-w-xl">
-          {product &&
-            <ProductCard {...product}/>         
-          }          
-        </div>
+      <div className="lg:flex lg:gap-2">
 
-        <div className="md:max-w-md">
+        <div className="hidden lg:block lg:w-[20%]">
           {product &&
-            <CompanyCard 
-              {...product}
-              isLoaded={isLoaded}
-              map={map}
-              setMap={setMap}
-              center={center}
-              containerStyle={containerStyle}
-              GoogleMap={GoogleMap}
-              Marker={Marker}
-              mapContainer={mapContainer}
-            />          
+            <DesktopMenu {...product}/>        
           }
+        </div>
 
+        <div>
+
+          <div className="mx-2 py-5">
+            <EditButton />
+          </div>
+
+          <div className="md:flex md:justify-end">
+            <div className="md:max-w-[60%]">
+              {product &&
+                <ProductCard {...product}/>         
+              }          
+            </div>
+
+            <div className="md:max-w-[40%] md:mr-5">
+              {product &&
+                <CompanyCard 
+                  {...product}
+                  isLoaded={isLoaded}
+                  map={map}
+                  setMap={setMap}
+                  center={center}
+                  containerStyle={containerStyle}
+                  GoogleMap={GoogleMap}
+                  Marker={Marker}
+                  showMap={true}
+                  configuration={configuration}
+                />          
+              }
+
+            </div>
+          </div>
         </div>
       </div>
+
+
 
       <div className='md:flex md:justify-end'>
         <div className='md:max-w-5xl md:w-full md:mr-20'>

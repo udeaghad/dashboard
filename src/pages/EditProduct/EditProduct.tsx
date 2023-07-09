@@ -9,7 +9,8 @@ import { productActions } from '../../features/product/product';
 import CompanyCard from '../../components/CompanyCard/CompanyCard';
 import EditVideoPlayer from '../../components/VideoPlayer/EditVideoPlayer';
 import EditOfferDetails from '../../components/OfferDetails/EditOfferDetails';
-import { useGetTRL } from '../../hooks/apiHooks'
+import { useGetTRL } from '../../hooks/apiHooks';
+import DesktopMenu from '../../components/DesktopMenu/DesktopMenu';
 
 
 const EditProduct = () => {
@@ -18,7 +19,7 @@ const EditProduct = () => {
 
   const { getTRL} = useGetTRL();
 
-  const { product } = useAppSelector((state) => state.product);
+  const { product: {product}, configuration: {configuration} } = useAppSelector((state) => state);
   const [changed, setChanged ] = useState<boolean>(false)
   const [editDescription, setEditDescription] = useState('')
   const [tempProduct, setTempProduct] = useState<IProduct | null>(null);
@@ -46,18 +47,6 @@ const EditProduct = () => {
     setChanged(true)
   }, [editDescription])
 
-  const handleUpdateDescription = () => {
-    if (!tempProduct) return;
-    postProductUpdate(editDescription)   
-    dispatch(productActions.updateProduct({...tempProduct, description: editDescription}))
-    setChanged(false);
-  };
-
-  const handleSave = () => {    
-    // dispatch(productActions.updateProduct(tempProduct));
-    setChanged(false);
-  };
-
   const {isLoaded} = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '', 
@@ -84,7 +73,14 @@ const EditProduct = () => {
     }
   }, [product])
 
-  const mapContainer = useRef<HTMLDivElement>(null);
+   const handleUpdateDescription = () => {
+    if (!tempProduct) return;
+    postProductUpdate({description: editDescription})   
+    dispatch(productActions.updateProduct({...tempProduct, description: editDescription}))
+    setChanged(false);
+  };
+
+
   const videoRef = useRef<HTMLInputElement>(null);
 
   const handleVideoLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,6 +91,7 @@ const EditProduct = () => {
       if (videoLink === tempProduct.video) return;
       if (videoLink === '') return;
       dispatch(productActions.updateProduct({...tempProduct, video: videoLink}));
+      postProductUpdate({video: videoLink})
     }
     
   };
@@ -108,6 +105,7 @@ const EditProduct = () => {
       if (categoriesRef.current.value === '') return;
       const category = {id: Date.now(), name: categoriesRef.current.value};
       dispatch(productActions.updateProduct({...tempProduct, categories: [...tempProduct.categories, category]}));
+      postProductUpdate({categories: [...tempProduct.categories, category]})
     }
   };
   const businessModelRef = useRef<HTMLInputElement>(null);
@@ -119,6 +117,7 @@ const EditProduct = () => {
       if (businessModelRef.current.value === '') return;
       const businessModel = {id: Date.now(), name: businessModelRef.current.value};
       dispatch(productActions.updateProduct({...tempProduct, businessModels: [...tempProduct.businessModels, businessModel]}));
+      postProductUpdate({businessModels: [...tempProduct.businessModels, businessModel]})
     }
   };
 
@@ -127,54 +126,81 @@ const EditProduct = () => {
     if (!selectedTRL) return;
     if (selectedTRL.name === tempProduct.trl.name) return;
     dispatch(productActions.updateProduct({...tempProduct, trl: selectedTRL}));
+    postProductUpdate({trl: selectedTRL})
   }, [selectedTRL, tempProduct, dispatch])
+
+  const handeDeleteCategory = (id: number) => {                                   
+    if (!tempProduct) return; 
+    const newCategories = tempProduct.categories.filter((category) => category.id !== id);
+    dispatch(productActions.updateProduct({...tempProduct, categories: newCategories}));
+  };
+
+  const handleDeleteBusinessModel = (id: number) => {
+    if (!tempProduct) return;
+    const newBusinessModels = tempProduct.businessModels.filter((businessModel) => businessModel.id !== id);  
+    dispatch(productActions.updateProduct({...tempProduct, businessModels: newBusinessModels}));              
+  };
   
 
   
   return (
-    <div>
-      <div className="md:flex md:justify-end md:mr-20">
-        <div className="md:max-w-xl">
+    <div className="bg-gray-200">
+      <div className="lg:flex lg:gap-2">
+        <div className="hidden lg:block lg:w-[20%]">
           {product &&
-            <EditProductCard 
-            {...product}
-            setEditDescription={setEditDescription}
-            handleUpdateDescription={handleUpdateDescription}
-            changed={changed}
-            />         
-          }  
-        </div>
-
-        <div className="md:max-w-md">
-          {product &&
-            <CompanyCard 
-              {...product}
-              isLoaded={isLoaded}
-              map={map}
-              setMap={setMap}
-              center={center}
-              containerStyle={containerStyle}
-              GoogleMap={GoogleMap}
-              Marker={Marker}
-              mapContainer={mapContainer}
-            />          
+            <DesktopMenu {...product}/>        
           }
-
-        </div>
-
-        <div className='md:flex md:justify-end'>
-          <div className='md:max-w-5xl md:w-full md:mr-20'>
-            {product &&
-              <EditVideoPlayer 
-                {...product}
-                handleVideoLinkChange={handleVideoLinkChange}
-                videoRef={videoRef}
-              />
-            }
-          </div>
         </div>
 
         <div>
+
+          <div className="md:flex md:justify-end">
+            <div className="md:max-w-[60%]">
+              {product &&
+                <EditProductCard 
+                {...product}
+                setEditDescription={setEditDescription}
+                handleUpdateDescription={handleUpdateDescription}
+                changed={changed}
+                />         
+              }  
+            </div>
+
+            <div className="md:max-w-[40%] md:mr-5">
+              {product &&
+                <CompanyCard 
+                  {...product}
+                  isLoaded={isLoaded}
+                  map={map}
+                  setMap={setMap}
+                  center={center}
+                  containerStyle={containerStyle}
+                  GoogleMap={GoogleMap}
+                  Marker={Marker}
+                  showMap={false}
+                  configuration={configuration}
+                />          
+              }
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div className='md:flex md:justify-end'>
+        <div className='md:max-w-5xl md:w-full md:mr-20'>
+          {product &&
+            <EditVideoPlayer 
+              {...product}
+              handleVideoLinkChange={handleVideoLinkChange}
+              videoRef={videoRef}
+            />
+          }
+        </div>
+      </div>
+
+      <div>
         {product &&
           <EditOfferDetails 
             {...product}
@@ -185,11 +211,11 @@ const EditProduct = () => {
             getTRL={getTRL}
             selectedTRL={selectedTRL} 
             setSelectedTRL={setSelectedTRL} 
+            handeDeleteCategory={handeDeleteCategory}
+            handleDeleteBusinessModel={handleDeleteBusinessModel}
           />
         }
-        </div>
       </div>
-
     </div>
   )
 }

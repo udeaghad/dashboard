@@ -24,7 +24,7 @@ const EditProductCard = ({ setEditDescription, handleUpdateDescription, changed,
   )
 
   return (
-    <div className="m-3 bg-gray-50 rounded-md border-2 border-gray-100 p-3">
+    <div className="mx-3 mb-3 md:mt-3 bg-gray-50 rounded-md border-2 border-gray-100 p-3">
       <div className="relative">
         <div className='absolute border border-primary rounded-md flex bg-white justify-center top-0 left-0'>
           <div className='bg-[#272e71] p-2'>
