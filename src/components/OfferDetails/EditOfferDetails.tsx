@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { IProduct } from '../../interfaces/productInterface'
+
 import { BiSolidCategory } from 'react-icons/bi';
 import { GrBusinessService } from 'react-icons/gr';
 import { SiLevelsdotfyi } from 'react-icons/si';
@@ -9,18 +9,9 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import {IoMdClose} from 'react-icons/io';
 import { NavLink } from 'react-router-dom';
+import { IEditOfferDetails } from '../../interfaces/productInterface'
 
-interface IEditOfferDetails extends IProduct {
-  handleAddCategory: (e: React.KeyboardEvent<HTMLElement>) => void;
-  categoriesRef: React.RefObject<HTMLInputElement>
-  businessModelRef: React.RefObject<HTMLInputElement>
-  handleAddBusinessModel: (e: React.KeyboardEvent<HTMLElement>) => void;
-  getTRL: {id: string; name: string}[];
-  selectedTRL: {id: string; name: string} | null; 
-  setSelectedTRL: React.Dispatch<React.SetStateAction<{id: string; name: string} | null>>;  
-  handeDeleteCategory: (id: number) => void;
-  handleDeleteBusinessModel: (id: number) => void;
-}
+
 
 const classNames = (...classes:string[]) => {
   return classes.filter(Boolean).join(' ')

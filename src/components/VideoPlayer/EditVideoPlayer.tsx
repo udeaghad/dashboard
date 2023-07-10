@@ -1,10 +1,6 @@
 import React from 'react'
-import { IProduct } from '../../interfaces/productInterface';
+import { IEditVideoPlayer } from '../../interfaces/productInterface';
 
-interface IEditVideoPlayer extends IProduct {
-  handleVideoLinkChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  videoRef: React.RefObject<HTMLInputElement>;
-}
 
 const EditVideoPlayer = ({handleVideoLinkChange, videoRef, ...product}: IEditVideoPlayer) => {
   return (    

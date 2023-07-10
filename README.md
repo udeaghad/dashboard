@@ -15,7 +15,7 @@ To get a local copy up and running follow these simple steps.
 - Make your way to the correct directory by running this command:
 - `$ cd dashboard`
 - Run `npm install` to install the dependencies in the local node_modules folder.
-- Update the `.env` file with your REACT_APP_APP_ID key and REACT_APP_GOOGLE_MAPS_API_KEY 
+- Update the `.env` file with your REACT_APP_APP_ID and REACT_APP_GOOGLE_MAPS_API_KEY 
 - Run `npm start` to start the app in the browser.
 - Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 

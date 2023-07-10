@@ -7,14 +7,10 @@ import { NavLink } from 'react-router-dom';
 import { MdDone } from 'react-icons/md';
 import {IoMdClose} from 'react-icons/io';
                                 
-import { IProduct } from '../../interfaces/productInterface';
+import { IEditProductCard } from '../../interfaces/productInterface';
 import { SlBadge } from 'react-icons/sl';
 
-interface IEditProductCard extends IProduct {
-  setEditDescription: React.Dispatch<React.SetStateAction<string>>;
-  handleUpdateDescription: () => void;
-  changed: boolean
-}
+
 
 
 const EditProductCard = ({ setEditDescription, handleUpdateDescription, changed, ...product}:IEditProductCard) => {

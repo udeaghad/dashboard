@@ -1,18 +1,7 @@
 import React from 'react';
 import { IoLocationSharp } from 'react-icons/io5';
-import { IProduct } from '../../interfaces/productInterface';
+import { IProductCard } from '../../interfaces/productInterface';
 
-interface IProductCard extends IProduct {
-  isLoaded: boolean;
-  GoogleMap: any;
-  center: {lat: number; lng: number};
-  map: any;
-  setMap: React.Dispatch<React.SetStateAction<any>>;
-  containerStyle: {width: string; height: string};
-  Marker: any;
-  showMap: boolean;
-  configuration: { hasUserSection: boolean}
-}
 
 const CompanyCard = ({isLoaded, GoogleMap, center, map, setMap, containerStyle, Marker, showMap, configuration, ...product}: IProductCard) => {
   return (

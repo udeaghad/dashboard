@@ -33,3 +33,44 @@ export interface IProduct {
   };
   video: string;
 }
+
+export interface IProductCard extends IProduct {
+  isLoaded: boolean;
+  GoogleMap: any;
+  center: {lat: number; lng: number};
+  map: any;
+  setMap: React.Dispatch<React.SetStateAction<any>>;
+  containerStyle: {width: string; height: string};
+  Marker: any;
+  showMap: boolean;
+  configuration: { hasUserSection: boolean}
+}
+
+export interface NavBarProps {
+  mainColor: string;
+  navigation: { name: string; href: string; current: boolean }[];
+  classNames: (...classes: string[]) => string;
+}
+
+export interface IEditOfferDetails extends IProduct {
+  handleAddCategory: (e: React.KeyboardEvent<HTMLElement>) => void;
+  categoriesRef: React.RefObject<HTMLInputElement>
+  businessModelRef: React.RefObject<HTMLInputElement>
+  handleAddBusinessModel: (e: React.KeyboardEvent<HTMLElement>) => void;
+  getTRL: {id: string; name: string}[];
+  selectedTRL: {id: string; name: string} | null; 
+  setSelectedTRL: React.Dispatch<React.SetStateAction<{id: string; name: string} | null>>;  
+  handeDeleteCategory: (id: number) => void;
+  handleDeleteBusinessModel: (id: number) => void;
+}
+
+export interface IEditProductCard extends IProduct {
+  setEditDescription: React.Dispatch<React.SetStateAction<string>>;
+  handleUpdateDescription: () => void;
+  changed: boolean
+}
+
+export interface IEditVideoPlayer extends IProduct {
+  handleVideoLinkChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  videoRef: React.RefObject<HTMLInputElement>;
+}
